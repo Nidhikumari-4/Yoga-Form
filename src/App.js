@@ -1,15 +1,46 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import Modal from "react-modal";
 
 const App = () => {
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data, e) => {};
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState(null);
+
+  const openModal = (data) => {
+    setFormData(data);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setFormData(null);
+    reset();
+  };
+
+  const CompletePayment = async (data, e) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/enrollment/create",
+        data
+      );
+
+      console.log("API response data", response.data);
+      toast.success("Payment successful!");
+      openModal(data);
+    } catch (error) {
+      console.error("There was error submitting the form", error);
+      toast.error(error.message);
+    }
+  };
 
   const fixedAmount = 500;
   const batchOptions = ["6-7 AM", "7-8 AM", "8-9 AM", "5-6 PM"];
@@ -30,10 +61,52 @@ const App = () => {
 
   return (
     <div className=" bg-white max-w-lg mx-auto h-auto p-4 rounded-md ">
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto">
-        <h2 className="text-4xl font-bold mb-10 text-center">
-          Payment Details
-        </h2>
+      <Toaster position="right-top" />
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Form Details"
+        className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto "
+        overlayClassName="fixed inset-0 bg-zinc-200  "
+      >
+        {formData && (
+          <div className="bg-white p-8 rounded-md w-96 max-w-full text-center">
+            <h2 className="text-2xl font-bold mb-4">Payment Successful</h2>
+            <div className="text-left px-2 py-5">
+              <p>
+                <span className="font-semibold ">Name:</span> {formData.name}
+              </p>
+              <p>
+                <span className="font-semibold">Email:</span> {formData.email}
+              </p>
+              <p>
+                <span className="font-semibold">Age:</span> {formData.age}
+              </p>
+              <p>
+                <span className="font-semibold">Phone:</span> {formData.phone}
+              </p>
+              <p>
+                <span className="font-semibold">Month:</span> {formData.month}
+              </p>
+              <p>
+                <span className="font-semibold">Batch:</span> {formData.batch}
+              </p>
+              <p>
+                <span className="font-semibold">Amount:</span> ₹{fixedAmount}.00
+              </p>
+            </div>
+            <button
+              onClick={closeModal}
+              className="mt-6 bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:bg-blue-800"
+            >
+              Close
+            </button>
+          </div>
+        )}
+      </Modal>
+
+      <form className="max-w-sm mx-auto">
+        <h2 className="text-4xl font-bold mb-5 text-center">Payment Details</h2>
         <div className="mb-5">
           <label class="block mb-2 text-md font-medium text-gray-900">
             Name:{" "}
@@ -45,7 +118,7 @@ const App = () => {
             placeholder="name"
           />
           {errors.name && (
-            <span className="text-red-600">This field is required</span>
+            <span className="text-red-600">Name is required</span>
           )}
         </div>
 
@@ -168,6 +241,7 @@ const App = () => {
           <button
             type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            onClick={handleSubmit(CompletePayment)}
           >
             Pay ₹500
           </button>
