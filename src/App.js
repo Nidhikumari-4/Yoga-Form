@@ -14,6 +14,7 @@ const App = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const openModal = (data) => {
     setFormData(data);
@@ -27,6 +28,7 @@ const App = () => {
   };
 
   const CompletePayment = async (data, e) => {
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "https://yoga-jvb8.onrender.com/api/v1/enrollment/create",
@@ -36,9 +38,11 @@ const App = () => {
       console.log("API response data", response.data);
       toast.success("Payment successful!");
       openModal(data);
+      setIsLoading(false);
     } catch (error) {
       console.error("There was error submitting the form", error);
       toast.error(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -243,7 +247,7 @@ const App = () => {
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             onClick={handleSubmit(CompletePayment)}
           >
-            Pay ₹500
+            {isLoading ? "Processing..." : "Pay ₹500"}
           </button>
         </div>
       </form>
