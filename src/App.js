@@ -29,7 +29,7 @@ const App = () => {
   const CompletePayment = async (data, e) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/enrollment/create",
+        "https://yoga-jvb8.onrender.com/api/v1/enrollment/create",
         data
       );
 
