@@ -1,72 +1,99 @@
-# Getting Started with Create React App
+# **Yoga-Form**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### This repository contains the source code for the Yoga Form application, which consists of both frontend and backend components. The backend is deployed on **Render**, while the app is hosted on **Vercel**.
 
-## Available Scripts
+## **Links**
 
-In the project directory, you can run:
+Frontend GitHub: https://github.com/Nidhikumari-4/Yoga-Form \
+Backend GitHub: https://github.com/Nidhikumari-4/Yoga-Form-Backend \
+Hosted App: https://yoga-form-five.vercel.app/
 
-### `npm start`
+## **ER Diagram**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img width="3192" alt="er-diagram" src="https://github.com/Nidhikumari-4/Yoga-Form-Backend/assets/77065920/87a1e8ba-65fe-4efd-9a83-6727e805280c">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tools and Technologies
 
-### `npm test`
+Frontend: React.js and Tailwind CSS \
+Backend: Express and MongoDB
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Libraries and Packages Used
 
-### `npm run build`
+### Frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React js
+- Tailwind Css
+- react-hot-toast
+- react-modal
+- react-hook-form
+- axios
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Backend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Express
+- Mongoose
+- dotenv
+- cors
+- nodemon
 
-### `npm run eject`
+```
+Yoga-Form-Frontend
+├── src/
+│ ├── index.css ------------------------ # Styling files, including Tailwind CSS setup
+│ ├── App.js --------------------------- # Root component
+│ └── index.js ------------------------- # Entry point
+└── README.md  ------------------------- # Frontend README file
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+Yoga-Form-Backend
+├── controllers/ ----------------------- # Controllers handling business logic
+├── models/ ---------------------------- # MongoDB schema models
+├── routes/ ---------------------------- # Backend API routes
+├── db/ -------------------------------- # Database functions
+├── index.js --------------------------- # Express app setup
+└── README.md -------------------------- # Backend README file
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## **Approach**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend Development:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Utilized React.js as the primary framework for building the frontend of the Yoga Form application.
+- Employed Tailwind CSS for efficient and responsive styling of the form and its components, ensuring a visually appealing user interface.
 
-## Learn More
+### Form Validation:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Implemented form validation using react-hook-form to ensure accurate and valid user inputs.
+- Applied validation rules for fields such as name, email, age, phone, batch, and month to enhance data integrity and user experience.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Modal Design:
 
-### Code Splitting
+- Utilized react-modal to create intuitive and visually appealing modal interfaces, enhancing user interaction for additional information or actions.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### User Feedback Implementation:
 
-### Analyzing the Bundle Size
+- Integrated react-hot-toast for providing real-time feedback to users, ensuring a smooth and informative experience while interacting with the Yoga Form.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Backend API Integration:
 
-### Making a Progressive Web App
+- Used Axios to establish communication between the frontend and backend, enabling data exchange and fetching from the backend services.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Backend Service with Express:
 
-### Advanced Configuration
+- Employed Express.js as the backend service to handle requests and responses, ensuring smooth data flow between the frontend and the database.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Database Management with MongoDB and Mongoose:
 
-### Deployment
+- Connected MongoDB Atlas with Mongoose to manage collections and facilitate seamless data storage and retrieval.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### API Creation and Validation:
 
-### `npm run build` fails to minify
+- Created an API endpoint that accepts data (name, email, age, phone, batch, month) from the request body.
+- Validated the input data to ensure accuracy and consistency, particularly checking for age validation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Yoga-Form
-# Yoga-Form
+### Participant and Enrollment Management:
+
+- Utilized the database to check for existing participants' information.
+- If a participant doesn't exist, the API creates a new participant and then creates a new enrollment for that participant, maintaining relational integrity.
+- Returns an appropriate response after participant creation and enrollment.
